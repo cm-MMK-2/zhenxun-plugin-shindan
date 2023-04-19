@@ -24,7 +24,7 @@ require("nonebot_plugin_htmlrender")
 
 from nonebot_plugin_datastore.db import post_db_init
 
-from .config import Config
+from configs.config import Config
 from .manager import shindan_manager
 from .shindanmaker import (
     download_image,
@@ -35,18 +35,43 @@ from .shindanmaker import (
 
 post_db_init(shindan_manager.load_shindan_records)
 
-__plugin_meta__ = PluginMetadata(
-    name="趣味占卜",
-    description="使用ShindanMaker网站的趣味占卜",
-    usage="发送“占卜列表”查看可用占卜\n发送“{占卜名} {名字}”使用占卜",
-    config=Config,
-    extra={
-        "unique_name": "shindan",
-        "example": "人设生成 小Q",
-        "author": "meetwq <meetwq@gmail.com>",
-        "version": "0.3.2",
-    },
+
+__zx_plugin_name__ = "趣味占卜"
+__plugin_usage__ = """
+usage:
+    趣味占卜
+    指令：
+        占卜列表  --查看可用占卜
+        [占卜名] [名字]  --使用指定占卜
+        示例: 人设生成 小Q
+
+        添加占卜 [id] [指令]  --添加占卜指令到列表
+        如：添加占卜 917962 人设生成
+        删除占卜 [id]  --删除占卜指令
+        如：删除占卜 917962
+        设置占卜 [id] [mode]  --设置占卜输出模式：'text' 或 'image'(默认)
+        如：设置占卜 360578 text
+""".strip()
+
+__plugin_des__ = "使用ShindanMaker网站的趣味占卜"
+__plugin_cmd__ = ["趣味占卜", "占卜"]
+__plugin_type__ = ("一些工具",)
+__plugin_version__ = 0.28
+__plugin_author__ = "MeetWq"
+__plugin_settings__ = {
+    "level": 5,
+    "default_status": True,
+    "limit_superuser": False,
+    "cmd": ["趣味占卜"],
+}
+
+Config.add_plugin_config(
+    "shindanmaker",
+    "shindanmaker_cookie",
+    "",
+    help_="shindanmaker.com Cookie"
 )
+
 
 add_usage = """Usage:
 添加占卜 {id} {指令}

@@ -9,10 +9,8 @@ from bs4 import BeautifulSoup, Tag
 from nonebot import get_driver
 from nonebot_plugin_htmlrender import html_to_pic
 
-from .config import Config
+from configs.config import Config
 from .model import ShindanRecord
-
-shindan_config = Config.parse_obj(get_driver().config.dict())
 
 tpl_path = Path(__file__).parent / "templates"
 env = jinja2.Environment(loader=jinja2.FileSystemLoader(tpl_path), enable_async=True)
@@ -31,11 +29,9 @@ def retry(func):
 
 
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
+    "cookie": Config.get_config("shindanmaker", "shindanmaker_cookie")
 }
-
-if shindan_config.shindanmaker_cookie:
-    headers["cookie"] = shindan_config.shindanmaker_cookie
 
 
 @retry
