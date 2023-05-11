@@ -35,7 +35,6 @@ from .shindanmaker import (
 
 post_db_init(shindan_manager.load_shindan_records)
 
-
 __zx_plugin_name__ = "趣味占卜"
 __plugin_usage__ = """
 usage:
@@ -56,7 +55,7 @@ usage:
 __plugin_des__ = "使用ShindanMaker网站的趣味占卜"
 __plugin_cmd__ = ["趣味占卜", "占卜"]
 __plugin_type__ = ("一些工具",)
-__plugin_version__ = 0.28
+__plugin_version__ = 0.34
 __plugin_author__ = "MeetWq"
 __plugin_settings__ = {
     "level": 5,
